@@ -5,6 +5,11 @@
 $ docker-compose up -d 
 ```
 
+### Create a sample database
+```
+$ mysql -uroot -h 127.0.0.1 -p < sample.sql
+```
+
 ### Check maxscale state
 ```
 $ docker-compose exec mxs maxctrl list servers
@@ -13,11 +18,6 @@ $ docker-compose exec mxs maxctrl list servers
 ├─────────┼─────────┼──────┼─────────────┼─────────────────────┼──────┤
 │ server1 │ db      │ 3306 │ 0           │ Auth Error, Running │      │
 └─────────┴─────────┴──────┴─────────────┴─────────────────────┴──────┘
-```
-
-### Create a sample database
-```
-$ mysql -uroot -h 127.0.0.1 -p < sample.sql
 ```
 
 ### Seup dummy data
