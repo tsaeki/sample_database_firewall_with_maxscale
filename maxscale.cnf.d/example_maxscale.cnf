@@ -1,0 +1,68 @@
+# MaxScale documentation:
+# https://mariadb.com/kb/en/mariadb-enterprise/mariadb-maxscale-22/
+
+# Server definitions
+#
+# Set the address of the server to the network
+# address of a MariaDB server.
+#
+
+[server1]
+type=server
+address=db
+port=3306
+protocol=MariaDBBackend
+
+# Monitor for the servers
+#
+# This will keep MaxScale aware of the state of the servers.
+# MariaDB Monitor documentation:
+# https://mariadb.com/kb/en/mariadb-enterprise/mariadb-maxscale-22-mariadb-monitor/
+
+[MariaDB-Monitor]
+type=monitor
+module=mariadbmon
+servers=server1
+user=maxscale
+password=maxscale_password
+monitor_interval=2000
+
+# Service definitions
+#
+# Service Definition for a read-only service and
+# a read/write splitting service.
+#
+
+# ReadConnRoute documentation:
+# https://mariadb.com/kb/en/mariadb-enterprise/mariadb-maxscale-22-readconnroute/
+
+[Read-Only-Service]
+type=service
+router=readconnroute
+router_options=running
+servers=server1
+user=maxscale
+password=maxscale_password
+filters=SampleLogFilter
+
+# Listener definitions for the services
+#
+# These listeners represent the ports the
+# services will listen on.
+#
+
+[Read-Only-Listener]
+type=listener
+service=Read-Only-Service
+protocol=MariaDBClient
+port=4008
+address=0.0.0.0
+
+# Filters
+## Query Log All Filter
+## https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Query-Log-All-Filter/
+[SampleLogFilter]
+type=filter
+module=qlafilter
+match=SELECT.*FROM.*users
+filebase=/tmp/sample

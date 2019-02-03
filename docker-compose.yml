@@ -1,0 +1,20 @@
+version: "3"
+services:
+  db:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    networks:
+      - samplenet
+  mxs:
+    image: mariadb/maxscale:latest
+    volumes:
+      - ./maxscale.cnf.d:/etc/maxscale.cnf.d
+    ports:
+      - "4008:4008"
+    networks:
+      - samplenet
+networks:
+  samplenet:
