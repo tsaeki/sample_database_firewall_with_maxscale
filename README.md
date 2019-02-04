@@ -1,4 +1,6 @@
 # Sample Database Firewall with Maxscale
+## Architecture
+![architecture](https://raw.githubusercontent.com/tsaeki/sample_database_firewall_with_maxscale/images/20190204_sample_maxscale.png)
 ## Setup
 ### Run a mariadb server and a maxscale server
 ```
