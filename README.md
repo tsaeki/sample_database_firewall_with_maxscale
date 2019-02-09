@@ -31,19 +31,36 @@ $ pipenv run python3 dummy_data.py
 ### Query Log All Filter
 https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Query-Log-All-Filter/
 
+#### sample configration
+```
+[Read-Only-Service]
+type=service
+router=readconnroute
+router_options=running
+servers=server1
+user=maxscale
+password=maxscale_password
+filters=SampleLogFilter
+
+[SampleLogFilter]
+type=filter
+module=qlafilter
+match=SELECT.*FROM.*users
+filebase=/tmp/sample
+log_type=unified
+flush=true
+```
+#### sample run
 ```
 # Run sample query
 $ mysql -usample -h 127.0.0.1 -P 4008 -p sampledb -e "SELECT * FROM users"
 
 # Check query log
 $ docker-compose exec mxs /bin/bash
-root@882ee08125a4:/# ls -l /tmp/
-total 4
--rw-r--r-- 1 maxscale maxscale 79 Feb  3 11:57 sample.2
-root@882ee08125a4:/# cat /tmp/sample.2
+root@882ee08125a4:/# tail -f /tmp/sample.unified
 Date,User@Host,Query
-2019-02-03 11:57:43,sample@172.18.0.1,SELECt * FROM users
-root@882ee08125a4:/#
+2019-02-09 01:35:56,sample@172.18.0.1,SELECT * FROM users
+2019-02-09 01:38:32,sample@172.18.0.1,select * from users
 ```
 
 ### Database Firewall filter

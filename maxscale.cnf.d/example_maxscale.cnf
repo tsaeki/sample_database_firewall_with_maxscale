@@ -66,3 +66,5 @@ type=filter
 module=qlafilter
 match=SELECT.*FROM.*users
 filebase=/tmp/sample
+log_type=unified
+flush=true
