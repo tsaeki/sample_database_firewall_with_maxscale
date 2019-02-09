@@ -43,7 +43,7 @@ router_options=running
 servers=server1
 user=maxscale
 password=maxscale_password
-filters=dbfw-blacklist
+filters=SampleMasking
 
 # Listener definitions for the services
 #
@@ -76,3 +76,10 @@ type=filter
 module=dbfwfilter
 action=block
 rules=/etc/maxscale.modules.d/blacklist-rules.txt
+
+## Masking
+## https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Masking/
+[SampleMasking]
+type=filter
+module=masking
+rules=/etc/maxscale.modules.d/sample-masking-rules.json

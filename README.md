@@ -143,7 +143,74 @@ $ mysql -usample -h 127.0.0.1 -P 4008 -psample_password sampledb -e "DELETE FROM
 
 ### Masking
 https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Masking/
-- coming soon
+#### sample configration
+- /etc/maxscale.cnf.d/example_maxscale.cnf
+```
+[Read-Only-Service]
+type=service
+router=readconnroute
+router_options=running
+servers=server1
+user=maxscale
+password=maxscale_password
+filters=SampleMasking
+
+[SampleMasking]
+type=filter
+module=masking
+rules=/etc/maxscale.modules.d/sample-masking-rules.json
+```
+
+#### sample run
+```
+# Rule
+$ cat /etc/maxscale.modules.d/sample-masking-rules.json
+{
+    "rules": [
+        {
+            "replace": {
+                "column": "tel"
+            },
+            "with": {
+                "value": "xxx-xxxx-xxxx"
+            }
+        },
+        {
+            "replace": {
+                "column": "zip"
+            },
+            "with": {
+                "value": "xxx-xxxx"
+            }
+        },
+        {
+            "replace": {
+                "column": "credit_card_number"
+            },
+            "with": {
+                "fill": "*"
+            }
+        }
+    ]
+}
+
+# Run
+$ mysql -usample -h 127.0.0.1 -P 4008 -psample_password sampledb -e "SELECT * FROM users limit 10"
++-----+------------------+-----------------------------+----------+---------------+--------------------+
+| id  | name             | email                       | zip      | tel           | credit_card_number |
++-----+------------------+-----------------------------+----------+---------------+--------------------+
+| 101 | 杉山 結衣        | hidaka@gmail.com            | xxx-xxxx | xxx-xxxx-xxxx | ****************   |
+| 102 | 渚 真綾          | minoru40@yahoo.com          | xxx-xxxx | XXXXXXXXXXXX  | ****************   |
+| 103 | 井上 修平        | taichikudo@hotmail.com      | xxx-xxxx | XXXXXXXXXXXX  | ****************   |
+| 104 | 中津川 和也      | nuno@yahoo.com              | xxx-xxxx | XXXXXXXXXXXX  | ****************   |
+| 105 | 杉山 春香        | mai42@gmail.com             | xxx-xxxx | xxx-xxxx-xxxx | ****************   |
+| 106 | 三宅 桃子        | hirokawatomoya@hotmail.com  | xxx-xxxx | xxx-xxxx-xxxx | ****************   |
+| 107 | 小林 英樹        | nagisaasuka@gmail.com       | xxx-xxxx | xxx-xxxx-xxxx | ***************    |
+| 108 | 松本 学          | sugiyamaasuka@hotmail.com   | xxx-xxxx | xxx-xxxx-xxxx | ****************   |
+| 109 | 加納 太一        | manabunomura@gmail.com      | xxx-xxxx | xxx-xxxx-xxxx | ************       |
+| 110 | 中津川 健一      | atsushimiyagawa@hotmail.com | xxx-xxxx | XXXXXXXXXXXX  | ****************   |
++-----+------------------+-----------------------------+----------+---------------+--------------------+
+```
 ### Maxrows
 https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Maxrows/
 - coming soon

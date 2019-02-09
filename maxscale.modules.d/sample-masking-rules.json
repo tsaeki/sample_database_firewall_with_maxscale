@@ -1,0 +1,28 @@
+{
+    "rules": [
+        {
+            "replace": {
+                "column": "tel"
+            },
+            "with": {
+                "value": "xxx-xxxx-xxxx"
+            }
+        },
+        {
+            "replace": {
+                "column": "zip"
+            },
+            "with": {
+                "value": "xxx-xxxx"
+            }
+        },
+        {
+            "replace": {
+                "column": "credit_card_number"
+            },
+            "with": {
+                "fill": "*"
+            }
+        }
+    ]
+}
