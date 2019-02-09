@@ -1,0 +1,13 @@
+# Rule syntax
+# rule NAME deny { wildcard | columns VALUE... |
+#      regex REGEX | limit_queries COUNT TIMEPERIOD HOLDOFF |
+#       no_where_clause} [at_times VALUE...] [on_queries [select|update|insert|delete|grant|revoke|drop|create|alter|use|load]]
+rule deny_select match regex '(?i).*select.*from.*users.*'
+#rule deny_select match on_queries select
+#rule deny_select match columns name
+#rule deny_delete match no_where_clause on_queries delete
+
+
+# Applying rules to users
+# users NAME... match { any | all | strict_all } rules RULE...
+users %@% match any rules deny_select

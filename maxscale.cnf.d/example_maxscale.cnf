@@ -43,7 +43,7 @@ router_options=running
 servers=server1
 user=maxscale
 password=maxscale_password
-filters=SampleLogFilter
+filters=dbfw-blacklist
 
 # Listener definitions for the services
 #
@@ -68,3 +68,11 @@ match=SELECT.*FROM.*users
 filebase=/tmp/sample
 log_type=unified
 flush=true
+
+## Database Firewall filter
+## https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Database-Firewall-Filter/
+[dbfw-blacklist]
+type=filter
+module=dbfwfilter
+action=block
+rules=/etc/maxscale.modules.d/blacklist-rules.txt

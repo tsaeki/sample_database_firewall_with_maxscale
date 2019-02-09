@@ -12,6 +12,7 @@ services:
     image: mariadb/maxscale:latest
     volumes:
       - ./maxscale.cnf.d:/etc/maxscale.cnf.d
+      - ./maxscale.modules.d/:/etc/maxscale.modules.d
     ports:
       - "4008:4008"
     networks:
