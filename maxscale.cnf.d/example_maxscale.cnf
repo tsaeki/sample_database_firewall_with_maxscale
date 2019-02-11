@@ -43,7 +43,7 @@ router_options=running
 servers=server1
 user=maxscale
 password=maxscale_password
-filters=SampleMasking
+filters=SampleMaxRows
 
 # Listener definitions for the services
 #
@@ -64,7 +64,7 @@ address=0.0.0.0
 [SampleLogFilter]
 type=filter
 module=qlafilter
-match=SELECT.*FROM.*users
+match=/SELECT.*FROM.*users/
 filebase=/tmp/sample
 log_type=unified
 flush=true
@@ -83,3 +83,11 @@ rules=/etc/maxscale.modules.d/blacklist-rules.txt
 type=filter
 module=masking
 rules=/etc/maxscale.modules.d/sample-masking-rules.json
+
+## Maxrows
+## https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Maxrows/
+[SampleMaxRows]
+type=filter
+module=maxrows
+max_resultset_rows=10
+debug=3

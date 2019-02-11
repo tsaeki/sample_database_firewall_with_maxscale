@@ -213,9 +213,29 @@ $ mysql -usample -h 127.0.0.1 -P 4008 -psample_password sampledb -e "SELECT * FR
 ```
 ### Maxrows
 https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Maxrows/
-- coming soon
+#### sample configration
+- /etc/maxscale.cnf.d/example_maxscale.cnf
+```
+[Read-Only-Service]
+type=service
+router=readconnroute
+router_options=running
+servers=server1
+user=maxscale
+password=maxscale_password
+filters=SampleMaxRows
+
+[SampleMaxRows]
+type=filter
+module=maxrows
+max_resultset_rows=10
+```
+
 # Reference
 - https://www.slideshare.net/MariaDB/database-security-threats-mariadb-security-best-practices (P.22)
 - https://hub.docker.com/r/mariadb/maxscale/
 - https://maxscale.readthedocs.io/en/stable/README/
 - https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Query-Log-All-Filter/
+- https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Database-Firewall-Filter/
+- https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Masking/
+- https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Maxrows/
