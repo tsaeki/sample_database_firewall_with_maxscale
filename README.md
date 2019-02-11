@@ -33,7 +33,7 @@ https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Query-Log-All-Fi
 
 #### sample configration
 ```
-[Read-Only-Service]
+[Sample-Service]
 type=service
 router=readconnroute
 router_options=running
@@ -68,7 +68,7 @@ https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Database-Firewal
 #### sample configration
 - /etc/maxscale.cnf.d/example_maxscale.cnf
 ```
-[Read-Only-Service]
+[Sample-Service]
 type=service
 router=readconnroute
 router_options=running
@@ -146,7 +146,7 @@ https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Masking/
 #### sample configration
 - /etc/maxscale.cnf.d/example_maxscale.cnf
 ```
-[Read-Only-Service]
+[Sample-Service]
 type=service
 router=readconnroute
 router_options=running
@@ -216,7 +216,7 @@ https://maxscale.readthedocs.io/en/stable/Documentation/Filters/Maxrows/
 #### sample configration
 - /etc/maxscale.cnf.d/example_maxscale.cnf
 ```
-[Read-Only-Service]
+[Sample-Service]
 type=service
 router=readconnroute
 router_options=running

@@ -29,14 +29,14 @@ monitor_interval=2000
 
 # Service definitions
 #
-# Service Definition for a read-only service and
+# Service Definition for a Sample service and
 # a read/write splitting service.
 #
 
 # ReadConnRoute documentation:
 # https://mariadb.com/kb/en/mariadb-enterprise/mariadb-maxscale-22-readconnroute/
 
-[Read-Only-Service]
+[Sample-Service]
 type=service
 router=readconnroute
 router_options=running
@@ -51,9 +51,9 @@ filters=SampleMaxRows
 # services will listen on.
 #
 
-[Read-Only-Listener]
+[Sample-Listener]
 type=listener
-service=Read-Only-Service
+service=Sample-Service
 protocol=MariaDBClient
 port=4008
 address=0.0.0.0
